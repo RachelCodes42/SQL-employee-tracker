@@ -72,11 +72,11 @@ const addEmployee = function () {
             name: 'role',
             message: 'What is the role of this employee?',
             choices: [
-                'Jr. Engineer',
+                'Engineer',
                 'Accountant',
                 'Lawyer',
-                'Jr. Sales Associate',
-                'Social Media Manager',
+                'Sales Associate',
+                'Marketing Manager',
             ]
         }
     ])
