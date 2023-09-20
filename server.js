@@ -1,5 +1,5 @@
 const inquirer = require("inquirer");
-const db = require("./db/connection");
+const db = require("/db/connection.js");
 const express = require("express");
 // Import and require mysql2
 const mysql = require("mysql2");
@@ -65,7 +65,7 @@ function init() {
           break;
         }
 
-        case "View all department?": {
+        case "View all departments?": {
           viewAllDepartment();
           break;
         }
@@ -85,7 +85,7 @@ function init() {
           break;
         }
 
-        case "quit?": {
+        case "Quit?": {
           console.log("quit?");
           break;
         }
