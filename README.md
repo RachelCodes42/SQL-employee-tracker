@@ -43,23 +43,25 @@ mysql -u your-mysql-username -p employee_db < db/seeds.sql
 <!-- Add usage information here -->
 1. Upon starting the application, you will be presented with a menu of options:
 
-View all departments
-View all roles
-View all employees
-Add a department
-Add a role
-Add an employee
-Update an employee role
-Exit
+    View all departments
+    View all roles
+    View all employees
+    Add a department
+    Add a role
+    dd an employee
+    Update an employee role
+    Exit
 
 2. Select the desired action by entering the corresponding number or using arrow keys.
 
 Viewing Departments, Roles, and Employees
+
 When choosing to view departments, a formatted table displaying department names and IDs will be presented.
 When choosing to view roles, a table with job titles, role IDs, associated departments, and salaries will be displayed.
 When selecting to view employees, you will see a table with employee data, including IDs, first names, last names, job titles, departments, salaries, and their respective managers.
 
 Adding Data
+
 When opting to add a department, you will be prompted to enter the name of the department, and it will be added to the database.
 To add a role, provide the role's name, salary, and the associated department.
 When adding an employee, enter the employee's first name, last name, role, and manager. The employee will be added to the database.
