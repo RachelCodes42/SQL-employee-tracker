@@ -1,6 +1,6 @@
-const inquirer = require("inquirer");
-const db = require("/db/connection.js");
 const express = require("express");
+const inquirer = require("inquirer");
+const db = require("./db/connection");
 // Import and require mysql2
 const mysql = require("mysql2");
 const { response } = require("express");
