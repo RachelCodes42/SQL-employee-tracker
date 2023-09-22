@@ -14,7 +14,6 @@ app.use(express.json());
 
 // Connect to database
 
-// TODO: Create an array of prompt for user input
 function init() {
   console.table("");
   inquirer
@@ -32,7 +31,7 @@ function init() {
           { name: "View all department?", value: "View all department?" },
           { name: "Add department?", value: "Add department?" },
           { name: "Remove department?", value: "Remove department?" },
-          { name: "View total budget by department?",value: "View total budget by department?",},
+          { name: "View total budget by department?", value: "View total budget by department?", },
           { name: "quit?", value: "quit?" },
         ],
       },
@@ -75,12 +74,12 @@ function init() {
           break;
         }
 
-        case "Remove department":{
+        case "Remove department": {
           removeDepartment();
           break;
         }
 
-        case "View total budget by department?":{
+        case "View total budget by department?": {
           viewTotalBudgetByDepartment()
           break;
         }
@@ -90,7 +89,7 @@ function init() {
           break;
         }
       }
-      init();
+      // init();
     });
 }
 
@@ -100,75 +99,121 @@ function viewEmployee() {
     if (err) throw err;
     console.table(results);
   });
-  }
+  init();
+}
 
-  function viewAllRoles() {
-    console.log("I'm happy to help!");
-    db.query("SELECT * FROM role", function (err, results) {
-      if (err) throw err;
-      console.table(results);
-    });
-    }
+function viewAllRoles() {
+  console.log("I'm happy to help!");
+  db.query("SELECT * FROM role", function (err, results) {
+    if (err) throw err;
+    console.table(results);
+  });
+}
 
-    function viewAllDepartment() {
-      console.log("I'm happy to help!");
-      db.query("SELECT * FROM department", function (err, results) {
+function viewAllDepartment() {
+  console.log("I'm happy to help!");
+  db.query("SELECT * FROM department", function (err, results) {
+    if (err) throw err;
+    console.table(results);
+  });
+}
+
+
+function addEmployee() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "Enter the employee's first name:",
+        name: "firstName",
+      },
+      {
+        type: "input",
+        message: "Enter the employee's last name:",
+        name: "lastName",
+      },
+      {
+        type: "input",
+        message: "Enter the employee's role ID:",
+        name: "roleId",
+      },
+      {
+        type: "input",
+        message: "Enter the employee's manager ID:",
+        name: "managerId",
+      },
+    ])
+    .then((employee) => {
+      // Add the employee to the database here
+      console.log(`Employee ${employee.firstName} ${employee.lastName} added successfully.`);
+      db.query(`INSERT into employee(first_name, last_name, role_id, manager_id) VALUES (${employee.firstName}, ${employee.lastName})`, function (err, results) {
         if (err) throw err;
         console.table(results);
       });
-      }
+      init();
+    });
+}
+// function addEmployee() {
+//   inquirer
+//     .prompt([
+//       {
+//         type: "input",
+//         message: "Enter the employee's first name:",
+//         name: "firstName",
+//       },
+//       {
+//         type: "input",
+//         message: "Enter the employee's last name:",
+//         name: "lastName",
+//       },
+//     ])
+//     .then((answers) => {
+//       console.log(`Employee's first name: ${answers.firstName}`);
+//       console.log(`Employee's last name: ${answers.lastName}`);
+//     });
+// }
+function updateEmployeeRole() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "Enter the employee's ID you want to update:",
+        name: "employeeId",
+      },
+      {
+        type: "input",
+        message: "Enter the new role ID for the employee:",
+        name: "newRoleId",
+      },
+    ])
+
+    .then((employee) => {
+      // Add the employee to the database here
+      console.log(`Employee ${employee.firstName} ${employee.lastName} added successfully.`);
+
+      inquirer
+        .prompt([
+          {
+            type: "list",
+            message: "What would you like to do next?",
+            name: "nextAction",
+            choices: ["Update employee role?"],
+          },
+        ])
+        .then((choice) => {
+          switch (choice.nextAction) {
+            case "Update employee role?":
+              updateEmployeeRole();
+              break;
+          }
+        });
+    });
+  console.log(`Employee with ID ${updateData.employeeId} has been updated with a new role ID: ${updateData.newRoleId}`);
+  init();
+
+}
 
 
-  function addEmployee() {
-    inquirer
-      .prompt([
-        {
-          type: "input",
-          message: "Enter the employee's first name:",
-          name: "firstName",
-        },
-        {
-          type: "input",
-          message: "Enter the employee's last name:",
-          name: "lastName",
-        },
-        {
-          type: "input",
-          message: "Enter the employee's role ID:",
-          name: "roleId",
-        },
-        {
-          type: "input",
-          message: "Enter the employee's manager ID:",
-          name: "managerId",
-        },
-      ])
-      .then((employee) => {
-        // Add the employee to the database here
-        console.log(`Employee ${employee.firstName} ${employee.lastName} added successfully.`);
-        init();
-      });
 
-      function addEmployee() {
-        inquirer
-          .prompt([
-            {
-              type: "input",
-              message: "Enter the employee's first name:",
-              name: "firstName",
-            },
-            {
-              type: "input",
-              message: "Enter the employee's last name:",
-              name: "lastName",
-            },
-          ])
-          .then((answers) => {
-            console.log(`Employee's first name: ${answers.firstName}`);
-            console.log(`Employee's last name: ${answers.lastName}`);
-          });
-      }
-  }
-  
 // Function call to initialize app
 init();
