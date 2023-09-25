@@ -108,14 +108,24 @@ function viewAllRoles() {
     if (err) throw err;
     console.table(results);
   });
+  init();
 }
 
 function viewAllDepartment() {
   console.log("I'm happy to help!");
-  db.query("SELECT * FROM department", function (err, results) {
-    if (err) throw err;
-    console.table(results);
-  });
+  db.query("SELECT department.id, department.name FROM department"); 
+  // function (err, results) {
+  //   if (err) throw err;
+  //   console.table(results);
+  // }).then((rows)=>{
+  //   let departments= rows; 
+  //   console.table (departments)
+  // });
+}
+
+function totalBudget () {
+  inquirer
+  
 }
 
 function addDepartment() {
@@ -163,33 +173,20 @@ function addEmployee() {
     ])
     .then((employee) => {
       // Add the employee to the database here
+      let newEmployee = {
+        first_name: employee.firstName,
+        last_name: employee.lastName,
+        role_id: employee.roleId,
+        manager_id: employee.managerId
+      }
       console.log(`Employee ${employee.firstName} ${employee.lastName} added successfully.`);
-      db.query(`INSERT into employee(first_name, last_name, role_id, manager_id) VALUES (${employee.firstName}, ${employee.lastName}, ${employee.roleId}, ${employee.managerId})`, function (err, results) {
+      db.query('INSERT into employee SET ?' , newEmployee, function (err, results) {
         if (err) throw err;
-        console.table(results);
       });
-      // init();
+      init();
     });
 }
-// function addEmployee() {
-//   inquirer
-//     .prompt([
-//       {
-//         type: "input",
-//         message: "Enter the employee's first name:",
-//         name: "firstName",
-//       },
-//       {
-//         type: "input",
-//         message: "Enter the employee's last name:",
-//         name: "lastName",
-//       },
-//     ])
-//     .then((answers) => {
-//       console.log(`Employee's first name: ${answers.firstName}`);
-//       console.log(`Employee's last name: ${answers.lastName}`);
-//     });
-// }
+
 function updateEmployeeRole() {
   inquirer
     .prompt([
