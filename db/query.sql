@@ -1,5 +1,5 @@
 /*----- Join Statement to select values shown in employee table -----*/
-SELECT employee.id, employee.first_name, employee.last_name, title, name AS department, roles.salary 
+SELECT employee.id, employee.first_name, employee.last_name, title, name AS department, role.salary 
 FROM employee 
-JOIN roles ON employee.role_id = roles.id 
-JOIN department ON roles.department_id = department.id
+JOIN role ON employee.role_id = role.id 
+JOIN department ON role.department_id = department.id

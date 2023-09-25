@@ -95,7 +95,7 @@ function init() {
 
 function viewEmployee() {
   console.log("I'm happy to help!");
-  db.query("SELECT * FROM employees", function (err, results) {
+  db.query("SELECT * FROM employee", function (err, results) {
     if (err) throw err;
     console.table(results);
   });
@@ -118,6 +118,24 @@ function viewAllDepartment() {
   });
 }
 
+function addDepartment() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "Enter the employee's department:",
+        name: "addDepartment",
+      }
+    ])
+    .then((employee) => {
+      // Add the employee to the database here
+      console.log(`Employee ${employee.firstName} ${employee.lastName} added successfully.`);
+      db.query(`INSERT into department(name) VALUES (${employee.addDepartment})`, function (err, results) {
+        if (err) throw err;
+        console.table(results);
+      });
+    });
+  }
 
 function addEmployee() {
   inquirer
@@ -146,11 +164,11 @@ function addEmployee() {
     .then((employee) => {
       // Add the employee to the database here
       console.log(`Employee ${employee.firstName} ${employee.lastName} added successfully.`);
-      db.query(`INSERT into employee(first_name, last_name, role_id, manager_id) VALUES (${employee.firstName}, ${employee.lastName})`, function (err, results) {
+      db.query(`INSERT into employee(first_name, last_name, role_id, manager_id) VALUES (${employee.firstName}, ${employee.lastName}, ${employee.roleId}, ${employee.managerId})`, function (err, results) {
         if (err) throw err;
         console.table(results);
       });
-      init();
+      // init();
     });
 }
 // function addEmployee() {
