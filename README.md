@@ -16,8 +16,8 @@ Developers often need to create interfaces for non-developers to efficiently vie
 To use this application, follow the steps below:
 
 1. Clone the Repository: 
-git clone <repository-url>
-cd employee-database-cli
+git clone <RachelCodes42/SQL-employee-tracker>
+cd SQL-employee-tracker
 
 2. Install Dependencies: npm install
 
