@@ -28,7 +28,7 @@ function init() {
           { name: "Update employee role?", value: "Update employee role?" },
           { name: "View all roles?", value: "View all roles?" },
           { name: "Add role?", value: "Add role?" },
-          { name: "View all department?", value: "View all department?" },
+          { name: "View all departments?", value: "View all departments?" },
           { name: "Add department?", value: "Add department?" },
           { name: "Remove department?", value: "Remove department?" },
           { name: "View total budget by department?", value: "View total budget by department?", },
@@ -80,7 +80,7 @@ function init() {
         }
 
         case "View total budget by department?": {
-          viewTotalBudgetByDepartment()
+          totalBudget()
           break;
         }
 
@@ -113,19 +113,15 @@ function viewAllRoles() {
 
 function viewAllDepartment() {
   console.log("I'm happy to help!");
-  db.query("SELECT department.id, department.name FROM department"); 
-  // function (err, results) {
-  //   if (err) throw err;
-  //   console.table(results);
-  // }).then((rows)=>{
-  //   let departments= rows; 
-  //   console.table (departments)
-  // });
+  db.query("SELECT department.id, department.name FROM department", function (err, results) {
+    if (err) throw err;
+    console.table(results);
+  });
+  init();
 }
 
-function totalBudget () {
-  inquirer
-  
+function totalBudget() {
+  db.query("SELECT ")
 }
 
 function addDepartment() {
@@ -145,7 +141,7 @@ function addDepartment() {
         console.table(results);
       });
     });
-  }
+}
 
 function addEmployee() {
   inquirer
@@ -180,7 +176,7 @@ function addEmployee() {
         manager_id: employee.managerId
       }
       console.log(`Employee ${employee.firstName} ${employee.lastName} added successfully.`);
-      db.query('INSERT into employee SET ?' , newEmployee, function (err, results) {
+      db.query('INSERT into employee SET ?', newEmployee, function (err, results) {
         if (err) throw err;
       });
       init();
